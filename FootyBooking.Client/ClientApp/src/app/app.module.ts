@@ -47,7 +47,6 @@ import {MatInputModule} from '@angular/material/input';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
     ReactiveFormsModule
   ],
   providers: [],
