@@ -1,4 +1,3 @@
-import {SelectionModel} from '@angular/cdk/collections';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -28,10 +27,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
-
   options: FormGroup;
 
   constructor(fb: FormBuilder) {
@@ -39,19 +36,5 @@ export class HomeComponent {
       hideRequired: false,
       floatLabel: 'auto',
     });
-  }
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }
