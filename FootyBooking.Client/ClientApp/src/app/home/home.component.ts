@@ -7,8 +7,6 @@ import { AddedToGameComponent } from '../popups/added-to-game/added-to-game.comp
 export interface PeriodicElement {
   name: string;
   position: number;
-  weight: number;
-  symbol: string;
   paid: boolean;
   team: number;
 }
@@ -21,7 +19,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  displayedColumns: string[] = ['name', 'symbol'];
+  displayedColumns: string[] = ['name', 'team', 'paid'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   options: FormGroup;
   added = false;
@@ -31,7 +29,8 @@ export class HomeComponent {
       hideRequired: false,
       floatLabel: 'auto',
       name: ['', Validators.required],
-      paid: false
+      paid: false,
+      team: 0
     });
   } 
 
@@ -39,9 +38,8 @@ export class HomeComponent {
     ELEMENT_DATA.push({
       position: 1,
       name: this.options.get("name").value,
-      weight: 1.0079,
-      symbol: 'H',
       paid: this.options.get("paid").value,
+      team: 0
     } as PeriodicElement);
 
     this.dataSource.data = ELEMENT_DATA;

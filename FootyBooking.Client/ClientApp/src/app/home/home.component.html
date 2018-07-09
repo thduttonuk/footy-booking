@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title>
     Players in {{dataSource.data.length}}
-  </mat-card-title>   
+  </mat-card-title>
 </mat-card>
 <mat-card>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
@@ -17,15 +17,20 @@
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
- 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+
+    <!-- Team Column -->
+    <ng-container matColumnDef="team">
+      <th mat-header-cell *matHeaderCellDef> Team </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip *ngIf="element.team === 0">Pending</mat-chip>
+          <mat-chip *ngIf="element.team === 1" style="background-color: skyblue; color: white">Blue Team</mat-chip>
+        </mat-chip-list>
+      </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
+    <!-- Paid Column -->
+    <ng-container matColumnDef="paid">
       <th mat-header-cell *matHeaderCellDef> Paid </th>
       <td mat-cell *matCellDef="let element">
         <mat-checkbox [checked]="element.paid" (change)="paidChanged(element)"></mat-checkbox>
@@ -38,7 +43,7 @@
 </mat-card>
 
 <mat-card *ngIf="!added">
-  <form [formGroup]="options"  (ngSubmit)="onSubmit()">
+  <form [formGroup]="options" (ngSubmit)="onSubmit()">
     <mat-card>
       <div style="display: flex; flex-direction: column; text-align: left">
         <mat-form-field>
@@ -48,9 +53,7 @@
       </div>
     </mat-card>
     <mat-card>
-      <button mat-raised-button color="primary" 
-        type="submit"
-        [disabled]="!options.valid">Add Me</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!options.valid">Add Me</button>
     </mat-card>
   </form>
 </mat-card>
