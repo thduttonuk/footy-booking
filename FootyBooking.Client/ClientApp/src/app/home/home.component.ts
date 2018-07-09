@@ -49,7 +49,13 @@ export class HomeComponent {
     this.added = true;
 
     this.snackBar.openFromComponent(AddedToGameComponent, {
-      duration: 500      
+      duration: 5000      
+    });
+  }
+
+  public paidChanged(element) {
+    this.snackBar.openFromComponent(AddedToGameComponent, {
+      duration: 5000      
     });
   }
 }
