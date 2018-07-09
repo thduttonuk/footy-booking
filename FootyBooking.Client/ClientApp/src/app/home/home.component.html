@@ -1,6 +1,10 @@
 <mat-card>
+  <mat-card-title>
+    Players in {{dataSource.data.length}}
+  </mat-card-title>   
+</mat-card>
+<mat-card>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
-
 
     <!-- Position Column -->
     <ng-container matColumnDef="position">
@@ -24,7 +28,7 @@
     <ng-container matColumnDef="symbol">
       <th mat-header-cell *matHeaderCellDef> Paid </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox ></mat-checkbox>
+        <mat-checkbox [checked]="element.paid"></mat-checkbox>
       </td>
     </ng-container>
 
@@ -33,18 +37,20 @@
   </table>
 </mat-card>
 
-<mat-card>
-  <form [formGroup]="options">
+<mat-card *ngIf="!added">
+  <form [formGroup]="options"  (ngSubmit)="onSubmit()">
     <mat-card>
       <div style="display: flex; flex-direction: column; text-align: left">
         <mat-form-field>
-          <input matInput placeholder="Name" required>
+          <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
-        <mat-checkbox formControlName="hideRequired">Paid</mat-checkbox>
+        <mat-checkbox formControlName="paid">Paid</mat-checkbox>
       </div>
     </mat-card>
     <mat-card>
-      <button mat-raised-button color="primary">Add Me</button>
+      <button mat-raised-button color="primary" 
+        type="submit"
+        [disabled]="!options.valid">Add Me</button>
     </mat-card>
   </form>
 </mat-card>
